@@ -1,0 +1,100 @@
+1.1. Desarrollar el Proyecto
+A continuación, creará su propia base de datos de red social con las siguientes colecciones:
+Users
+Posts
+Comments
+
+use socialMediaDB
+db.createCollection("users")
+db.createCollection("posts")
+
+1.2. Ejecute las siguientes consulta
+
+A continuación tendrás que realizar las siguientes consultas MongoDB:
+
+1.2.1 INSERTAR DATOS
+
+
+Insertar al menos 15 publicaciones nuevas con almenos 2 comentarios por publicación:
+Title
+Body
+Username
+Comments
+Username
+Body
+
+db.posts.insert({ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post1", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] },{ title: "Post2", body: "LoremIpsum", Username: "User1", Comments: [{ Username: "Username1", Body: "Body1" }] })
+
+
+
+Insertar al menos 10 nuevos usuarios:
+Username
+Email
+Age
+
+db.users.insert({Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15},{Username:"USername1", Email:"emaill@gmail.com", Age:15})
+
+1.2.2 ACTUALIZAR DATOS
+ 
+Actualizar publicaciones:
+Actualiza todos los campos de una publicación
+db.posts.updateOne({"title":"Post11"},{$set:{"title":"newtitle","body":"Bodyupdatedddddddddd","Username":"USernameUpadted","Comments":[{"Username":"usernameUpdated","Body":"Bodyupdated"}]},$currentDate:{"lastModified":true}})
+
+Cambiar el body de una publicación.
+db.posts.updateOne({"title":"Post11"},{$set:{"body":"Bodyupdatedddddddddd"},$currentDate:{"lastModified":true}})
+
+Actualizar comentarios:
+Cambiar el body de un comentario.
+db.posts.updateOne({"title":"Post12"},{$set:{"Comments":[{"Username":"Username1", "Body":"CommentBody Updated"}]})
+
+Actualizar usuarios:
+Actualiza todos los campos de un usuario
+db.users.updateOne({"Username":"USername1"},{$set:{"Username":"UsenameUpdated1"},$currentDate:{"lastModified":true}})
+
+Cambiar el email de dos usuarios es decir hacer la query dos veces.
+db.users.updateOne({"Username":"USername1"},{$set:{"Email":"EmailUpdated1"},$currentDate:{"lastModified":true}})
+db.users.updateOne({"Username":"User1"},{$set:{"Email":"EmailUpdated2"},$currentDate:{"lastModified":true}})
+
+Aumenta en 5 años la edad de un usuario
+db.users.updateOne({"Username":"User1"},{$set:{"Age":+5},$currentDate:{"lastModified":true}})
+
+
+1.2.3 OBTENER DATOS
+
+Seleccionar todas las publicaciones
+db.getCollection('posts').find()
+
+Selecciona las publicaciones que coincidan con el username indicado
+db.getCollection('users').find({"Username":"User1")
+
+
+Seleccione todos los usuarios con una edad mayor a 20
+ db.getCollection('users').find({"Age":{$gt:20}})
+
+Seleccione todos los usuarios con una edad inferior a 23
+ db.getCollection('users').find({"Age":{$lt:23}})
+Seleccione todos los usuarios que tengan una edad entre 25 y 30 años
+ db.getCollection('users').find({"Age":{$gt:25,$lt:30}})
+
+Muestra los usuarios de edad menor a mayor y viceversa
+db.getCollection('users').find().sort({"Age":-1})
+db.getCollection('users').find().sort({"Age":+1})
+
+Seleccione el número total de usuarios
+db.getCollection('users').countDocuments()
+
+Seleccione todas las publicaciones de la siguiente manera: Título de la publicación: "título de las publicaciones"
+db.posts.find().forEach((doc)=> {print("Título de la publicación: " + doc.title)})
+
+Selecciona solo 2 usuarios
+db.users.find().limit(2)
+
+
+Busca por title 2 publicaciones
+db.posts.find({"title"}).limit(2)
+
+
+1.2.4 BORRAR DATOS
+
+Elimina a todos los usuarios con una edad mayor a 30
+db.getCollection('users').remove({"Age":{$gt:30}})
